@@ -10,7 +10,7 @@ const db = drizzle(process.env.DATABASE_URL!);
 
 async function getContacts() {
   // Fetch all contacts
-  return await db.select().from(contact);
+  return await db.select().from(contact).orderBy(contact.firstName);
 }
 
 export default async function ContactsPage() {
