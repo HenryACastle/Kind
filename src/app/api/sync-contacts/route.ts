@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { auth, clerkClient } from '@clerk/nextjs/server';
 import { drizzle } from 'drizzle-orm/neon-http';
 import { contact } from '@/db/schema';
