@@ -19,8 +19,8 @@ export default function SyncWithGoogleButton() {
       } else {
         setStatus(`Sync failed: ${data.error || "Unknown error"}`);
       }
-    } catch (err: any) {
-      setStatus(`Sync failed: ${err.message}`);
+    } catch (err: unknown) {
+      setStatus(`Sync failed: ${err instanceof Error ? err.message : "Unknown error"}`);
     } finally {
       setLoading(false);
       setTimeout(() => setStatus(null), 4000);
