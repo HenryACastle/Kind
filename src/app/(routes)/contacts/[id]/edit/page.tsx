@@ -21,7 +21,7 @@ export default function EditContactPage({ params }: { params: { id: string } }) 
         setFirstName(data.firstName || "");
         setMiddleName(data.middleName || "");
         setLastName(data.lastName || "");
-      } catch (err) {
+      } catch {
         setError("Failed to load contact data");
       } finally {
         setLoading(false);

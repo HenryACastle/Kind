@@ -1,4 +1,4 @@
-import { pgTable, integer, text, boolean, varchar, date } from "drizzle-orm/pg-core"
+import { pgTable, integer, text, boolean, date, varchar } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
 
@@ -7,14 +7,6 @@ export const todo = pgTable("todo", {
 	id: integer().primaryKey().notNull(),
 	text: text().notNull(),
 	done: boolean().default(false).notNull(),
-});
-
-export const phone = pgTable("phone", {
-	phoneId: integer().primaryKey().generatedAlwaysAsIdentity({ name: ""phone_phoneId_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647 }),
-	phoneNumber: text(),
-	label: text(),
-	ordinal: text(),
-	contactId: text().notNull(),
 });
 
 export const contact = pgTable("contact", {
@@ -29,6 +21,15 @@ export const contact = pgTable("contact", {
 	nickname: text(),
 	email: integer(),
 	googleResourceName: text(),
+	birthDate: date(),
+});
+
+export const phone = pgTable("phone", {
+	phoneId: integer().primaryKey().generatedAlwaysAsIdentity({ name: ""phone_phoneId_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647 }),
+	phoneNumber: text(),
+	label: text(),
+	ordinal: text(),
+	contactId: text().notNull(),
 });
 
 export const note = pgTable("note", {

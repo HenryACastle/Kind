@@ -19,6 +19,9 @@ export const contact = pgTable("contact", {
 	mnemonic: text(),
 	nickname: text(),
 	email: integer(),
+	googleResourceName: text(),
+	birthDate: date(),
+	
 });
 
 
