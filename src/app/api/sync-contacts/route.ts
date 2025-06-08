@@ -15,7 +15,7 @@ async function getGoogleToken() {
     }
 }
 
-export async function POST(_: NextRequest) {
+export async function POST() {
     const { userId } = await auth();
     console.log("userId", userId);
     if (!userId) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
