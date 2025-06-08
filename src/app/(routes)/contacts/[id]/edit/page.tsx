@@ -13,19 +13,21 @@ export default function EditContactPage({ params }: { params: { id: string } }) 
 
   // Fetch contact data on mount
   useEffect(() => {
-    setLoading(true);
-    fetch(`/api/contacts/${id}`)
-      .then(res => res.json())
-      .then(data => {
+    async function fetchContact() {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/contacts/${id}`);
+        const data = await res.json();
         setFirstName(data.firstName || "");
         setMiddleName(data.middleName || "");
         setLastName(data.lastName || "");
-        setLoading(false);
-      })
-      .catch(() => {
+      } catch (err) {
         setError("Failed to load contact data");
+      } finally {
         setLoading(false);
-      });
+      }
+    }
+    fetchContact();
   }, [id]);
 
   async function handleSubmit(e: React.FormEvent) {
