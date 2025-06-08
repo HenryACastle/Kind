@@ -37,8 +37,11 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ success: true, redirect: `/contacts/${newContact.id}` });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Error creating contact:", err);
-    return NextResponse.json({ error: err.message, stack: err.stack }, { status: 500 });
+    if (err instanceof Error) {
+      return NextResponse.json({ error: err.message, stack: err.stack }, { status: 500 });
+    }
+    return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
   }
 } 

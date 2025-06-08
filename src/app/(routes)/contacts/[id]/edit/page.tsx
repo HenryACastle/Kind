@@ -22,7 +22,7 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
         setLastName(data.lastName || "");
         setLoading(false);
       })
-      .catch(err => {
+      .catch(() => {
         setError("Failed to load contact data");
         setLoading(false);
       });

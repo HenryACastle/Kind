@@ -33,7 +33,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       .where(eq(contact.id, id));
 
     return NextResponse.json({ success: true, redirect: `/contacts/${id}` });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    return NextResponse.json({ error: err instanceof Error ? err.message : "An unknown error occurred" }, { status: 500 });
   }
 } 

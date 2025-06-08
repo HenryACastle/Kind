@@ -18,7 +18,7 @@ export default async function ContactDetailPage({ params }: { params: { id: stri
   // Get all note mappings for this contact
   const mappings = await db.select().from(noteMapping).where(eq(noteMapping.contactId, id));
   const noteIds = mappings.map(m => m.noteId);
-  let notes: any[] = [];
+  let notes: typeof note.$inferSelect[] = [];
   const filteredNoteIds = noteIds.filter((id): id is number => typeof id === 'number');
   if (filteredNoteIds.length > 0) {
     notes = await db.select().from(note).where(inArray(note.noteId, filteredNoteIds));

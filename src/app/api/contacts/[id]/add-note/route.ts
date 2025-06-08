@@ -22,7 +22,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       contactId,
     });
     return NextResponse.json({ success: true });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    return NextResponse.json({ error: err instanceof Error ? err.message : "An unknown error occurred" }, { status: 500 });
   }
 } 
