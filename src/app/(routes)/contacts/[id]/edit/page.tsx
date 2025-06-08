@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { use, useState, useEffect } from "react";
 
-export default function EditContactPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function EditContactPage({ params }: { params: { id: string } }) {
+  const { id } = params;
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
