@@ -47,8 +47,8 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
       } else {
         setError(data.error || "Failed to update contact");
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
       setLoading(false);
     }

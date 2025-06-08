@@ -30,9 +30,12 @@ export default function NoteForm({ contactId }: { contactId: number }) {
         setRelatedDate(new Date().toISOString().split("T")[0]);
         window.location.reload();
       }
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
+    } 
+    catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    }
+    
+    finally {
       setLoading(false);
     }
   }
