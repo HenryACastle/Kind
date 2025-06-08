@@ -1,9 +1,7 @@
 import { drizzle } from 'drizzle-orm/neon-http';
 import { contact } from '@/db/schema';
-import Image from 'next/image';
 import SyncWithGoogleButton from './SyncWithGoogleButton';
 import Link from 'next/link';
-import { eq } from 'drizzle-orm';
 import { UserRoundPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 

@@ -10,7 +10,7 @@ import {
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Button } from "@/components/ui/button";
-import { Plus, Users } from "lucide-react";
+import { Users } from "lucide-react";
 import Link from 'next/link';
 
 const geistSans = Geist({
