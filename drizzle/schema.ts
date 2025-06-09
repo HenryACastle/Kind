@@ -10,7 +10,7 @@ export const todo = pgTable("todo", {
 });
 
 export const contact = pgTable("contact", {
-	id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "contact_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
+	id: integer().primaryKey().generatedAlwaysAsIdentity(),
 	firstName: text(),
 	middleName: text(),
 	lastName: text(),
@@ -25,7 +25,7 @@ export const contact = pgTable("contact", {
 });
 
 export const phone = pgTable("phone", {
-	phoneId: integer().primaryKey().generatedAlwaysAsIdentity({ name: ""phone_phoneId_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647 }),
+	phoneId: integer().primaryKey().generatedAlwaysAsIdentity(),
 	phoneNumber: text(),
 	label: text(),
 	ordinal: text(),
@@ -33,21 +33,21 @@ export const phone = pgTable("phone", {
 });
 
 export const note = pgTable("note", {
-	noteId: integer().primaryKey().generatedAlwaysAsIdentity({ name: ""note_noteId_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647 }),
+	noteId: integer().primaryKey().generatedAlwaysAsIdentity(),
 	note: varchar(),
 	createdOn: date(),
 	relatedDate: date(),
 });
 
 export const email = pgTable("email", {
-	emailId: integer().primaryKey().generatedAlwaysAsIdentity({ name: ""email_emailId_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647 }),
+	emailId: integer().primaryKey().generatedAlwaysAsIdentity(),
 	email: text(),
 	label: text(),
 	contactId: integer(),
 });
 
 export const noteMapping = pgTable("noteMapping", {
-	noteMappingid: integer().generatedAlwaysAsIdentity({ name: ""noteMapping_noteMappingid_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647 }),
+	noteMappingid: integer().generatedAlwaysAsIdentity(),
 	noteId: integer(),
 	contactId: integer(),
 });
