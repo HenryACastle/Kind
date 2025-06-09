@@ -5,9 +5,11 @@ import { eq, and, not } from 'drizzle-orm';
 
 const db = drizzle(process.env.DATABASE_URL!);
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest) {
   try {
-    const id = Number(params.id);
+    const url = new URL(req.url);
+
+    const id = url.pathname.split('/').filter(Boolean).at(-2); // gets the [id] from /api/contacts/[id]/add-note
     const formData = await req.formData();
     const firstName = formData.get('firstName')?.toString() || '';
     const middleName = formData.get('middleName')?.toString() || '';
@@ -20,7 +22,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
         eq(contact.firstName, firstName),
         eq(contact.middleName, middleName),
         eq(contact.lastName, lastName),
-        not(eq(contact.id, id))
+        not(eq(contact.id, Number(id)))
       )
     );
     if (duplicates.length > 0) {
@@ -30,7 +32,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     // Update the contact
     await db.update(contact)
       .set({ firstName, middleName, lastName })
-      .where(eq(contact.id, id));
+      .where(eq(contact.id, Number(id)));
 
     return NextResponse.json({ success: true, redirect: `/contacts/${id}` });
   } catch (err: unknown) {
