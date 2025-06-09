@@ -1,9 +1,9 @@
-
+"use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-export default async function EditContactPage({ params }: { params: { id: string } }) {
+export default function EditContactPage({ params }: { params: { id: string } }) {
   const id = Number(params.id);
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
