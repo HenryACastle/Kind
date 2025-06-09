@@ -11,6 +11,20 @@ export async function POST(req: NextRequest) {
     const firstName = formData.get("firstName")?.toString() || "";
     const middleName = formData.get("middleName")?.toString() || "";
     const lastName = formData.get("lastName")?.toString() || "";
+    const suffix = formData.get("suffix")?.toString() || "";
+    const nickname = formData.get("nickname")?.toString() || "";
+    const mnemonic = formData.get("mnemonic")?.toString() || "";
+    const summary = formData.get("summary")?.toString() || "";
+    const introducedBy = formData.get("introducedBy")?.toString() || "";
+    const website = formData.get("website")?.toString() || "";
+    const linkedin = formData.get("linkedin")?.toString() || "";
+    const instagram = formData.get("instagram")?.toString() || "";
+    const twitter = formData.get("twitter")?.toString() || "";
+    const jobTitle = formData.get("jobTitle")?.toString() || "";
+    const company = formData.get("company")?.toString() || "";
+    const mainNationality = formData.get("mainNationality")?.toString() || "";
+    const secondaryNationality = formData.get("secondaryNationality")?.toString() || "";
+    
 
     // Check for duplicate
     const existing = await db.select().from(contact).where(
@@ -29,6 +43,19 @@ export async function POST(req: NextRequest) {
       firstName,
       middleName,
       lastName,
+      suffix,
+      nickname,
+      mnemonic,
+      summary,
+      introducedBy,
+      website,
+      linkedin,
+      instagram,
+      twitter,
+      jobTitle,
+      company,
+      mainNationality,
+      secondaryNationality,
     }).returning();
 
     const newContact = result[0];

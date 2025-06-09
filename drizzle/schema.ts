@@ -32,6 +32,13 @@ export const phone = pgTable("phone", {
 	contactId: text().notNull(),
 });
 
+export const email = pgTable("email", {
+	emailId: integer().primaryKey().generatedAlwaysAsIdentity(),
+	email: text(),
+	label: text(),
+	contactId: integer(),
+});
+
 export const note = pgTable("note", {
 	noteId: integer().primaryKey().generatedAlwaysAsIdentity(),
 	noteText: varchar(),
@@ -39,12 +46,7 @@ export const note = pgTable("note", {
 	relatedDate: date(),
 });
 
-export const email = pgTable("email", {
-	emailId: integer().primaryKey().generatedAlwaysAsIdentity(),
-	email: text(),
-	label: text(),
-	contactId: integer(),
-});
+
 
 export const noteMapping = pgTable("noteMapping", {
 	noteMappingid: integer().generatedAlwaysAsIdentity(),
