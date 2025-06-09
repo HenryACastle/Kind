@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     const today = new Date();
     // Insert note
     const inserted = await db.insert(note).values({
-      note: noteText,
+      noteText: noteText,
       createdOn: today,
       relatedDate: relatedDate ? new Date(relatedDate) : today,
     }).returning();

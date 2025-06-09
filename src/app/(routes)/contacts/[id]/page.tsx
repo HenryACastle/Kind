@@ -9,13 +9,15 @@ import Link from 'next/link';
 const db = drizzle(process.env.DATABASE_URL!);
 
 export default async function ContactDetailPage() {
-  const id = 1;
-  const contacts = await db.select().from(contact).where(eq(contact.id, id));
+  const url = new URL(window.location.href);
+
+  const id = url.pathname.split('/').filter(Boolean).at(-2); // gets the [id] from /api/contacts/[id]/add-note
+  const contacts = await db.select().from(contact).where(eq(contact.id, Number(id)));
   const c = contacts[0];
 
   if (!c) return <div className="p-8">Contact not found</div>;
 
-  const mappings = await db.select().from(noteMapping).where(eq(noteMapping.contactId, id));
+  const mappings = await db.select().from(noteMapping).where(eq(noteMapping.contactId, Number(id)));
   const noteIds = mappings.map(m => m.noteId);
   let notes: typeof note.$inferSelect[] = [];
   const filteredNoteIds = noteIds.filter((id): id is number => typeof id === 'number');
@@ -42,7 +44,7 @@ export default async function ContactDetailPage() {
       <div className="mb-2"><span className="font-semibold">Birth Date:</span> {c.birthDate ? new Date(c.birthDate).toLocaleDateString() : '-'}</div>
       {/* Add more fields as needed */}
       <div className="mt-6">
-        <NoteForm contactId={id} />
+        <NoteForm contactId={Number(id)} />
         <h2 className="text-lg font-semibold mb-2 mt-6">Notes</h2>
         {notes.length === 0 ? (
           <div className="text-gray-500">No notes for this contact.</div>
@@ -50,7 +52,7 @@ export default async function ContactDetailPage() {
           <ul className="list-disc pl-5">
             {notes.map(n => (
               <li key={n.noteId} className="mb-2">
-                <div className="font-medium">{n.note}</div>
+                <div className="font-medium">{n.noteText}</div>
                 <div className="text-xs text-gray-500">
                   Created: {n.createdOn ? new Date(n.createdOn).toLocaleDateString() : '-'}
                   {n.relatedDate && (
