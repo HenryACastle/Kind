@@ -77,6 +77,10 @@ export default function NewContactPage() {
         <Label htmlFor="summary">Summary</Label>
         <Input type="text" id="summary" placeholder="" />
       </div>
+      <div className=" my-4 grid w-full max-w-sm items-center gap-3">
+        <Label htmlFor="introducedBy">Introduced By</Label>
+        <Input type="text" id="introducedBy" placeholder="" />
+      </div>
 
       <label className="block mb-2">First Name
         <input
