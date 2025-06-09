@@ -1,10 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { use, useState, useEffect } from "react";
 
-export default function EditContactPage({ params }: { params: { id: string } }) {
-  const id = Number(params.id);
+export default function EditContactPage({ params }: { params: Promise<{ id: string }> }) {
+  const {id} = use(params);
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");

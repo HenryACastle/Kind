@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
 
 export default function NewContactPage() {
   const router = useRouter();
@@ -40,6 +41,13 @@ export default function NewContactPage() {
   return (
     <form className="p-8 max-w-lg mx-auto" onSubmit={handleSubmit}>
       <h1 className="text-2xl font-bold mb-4">New Contact</h1>
+      <Input name="firstName"
+        value={firstName}
+        onChange={e => setFirstName(e.target.value)}
+        className="border rounded p-2 w-full"
+        disabled={loading}>
+
+      </Input>
       <label className="block mb-2">First Name
         <input
           name="firstName"
