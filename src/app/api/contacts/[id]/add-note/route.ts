@@ -14,11 +14,15 @@ export async function POST(req: NextRequest) {
     const { note: noteText, relatedDate } = await req.json();
     const today = new Date();
     // Insert note
+
     const inserted = await db.insert(note).values({
       noteText: noteText,
-      createdOn: today,
-      relatedDate: relatedDate ? new Date(relatedDate) : today,
-    }).returning();
+    }).returning()
+   // const inserted = await db.insert(note).values({
+    //  noteText: noteText,
+    //  createdOn: today,
+    //  relatedDate: relatedDate ? new Date(relatedDate) : today,
+    //}).returning();
     const newNote = inserted[0];
     // Insert mapping
     await db.insert(noteMapping).values({

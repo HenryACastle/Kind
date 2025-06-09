@@ -1,10 +1,10 @@
 import { integer, pgTable, varchar, text, boolean, date } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  name: varchar({ length: 255 }).notNull(),
-  age: integer().notNull(),
-  email: varchar({ length: 255 }).notNull().unique(),
+	id: integer().primaryKey().generatedAlwaysAsIdentity(),
+	name: varchar({ length: 255 }).notNull(),
+	age: integer().notNull(),
+	email: varchar({ length: 255 }).notNull().unique(),
 });
 
 
@@ -21,7 +21,7 @@ export const contact = pgTable("contact", {
 	email: integer(),
 	googleResourceName: text(),
 	birthDate: date(),
-	
+
 });
 
 

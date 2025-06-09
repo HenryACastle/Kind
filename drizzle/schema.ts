@@ -10,7 +10,7 @@ export const todo = pgTable("todo", {
 });
 
 export const contact = pgTable("contact", {
-	id: integer().primaryKey().generatedAlwaysAsIdentity(),
+	id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "contact_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
 	firstName: text(),
 	middleName: text(),
 	lastName: text(),
@@ -34,7 +34,7 @@ export const phone = pgTable("phone", {
 
 export const note = pgTable("note", {
 	noteId: integer().primaryKey().generatedAlwaysAsIdentity(),
-	note: varchar(),
+	noteText: varchar(),
 	createdOn: date(),
 	relatedDate: date(),
 });

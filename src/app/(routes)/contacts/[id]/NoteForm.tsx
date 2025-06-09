@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function NoteForm({ contactId }: { contactId: number }) {
   const [open, setOpen] = useState(false);
-  const [note, setNote] = useState("");
+  const [noteText, setNoteText] = useState("");
   const [relatedDate, setRelatedDate] = useState(() => {
     const today = new Date();
     return today.toISOString().split("T")[0];
@@ -19,14 +19,14 @@ export default function NoteForm({ contactId }: { contactId: number }) {
       const res = await fetch(`/api/contacts/${contactId}/add-note`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ note, relatedDate }),
+        body: JSON.stringify({ noteText, relatedDate }),
       });
       if (!res.ok) {
         const data = await res.json();
         setError(data.error || "Failed to save note");
       } else {
         setOpen(false);
-        setNote("");
+        setNoteText("");
         setRelatedDate(new Date().toISOString().split("T")[0]);
         window.location.reload();
       }
@@ -54,8 +54,8 @@ export default function NoteForm({ contactId }: { contactId: number }) {
           <label className="font-semibold">Note</label>
           <textarea
             className="border rounded p-2"
-            value={note}
-            onChange={e => setNote(e.target.value)}
+            value={noteText}
+            onChange={e => setNoteText(e.target.value)}
             required
             rows={3}
           />
