@@ -60,7 +60,14 @@ export default function NewContactPage() {
         <Input type="text" id="suffix" placeholder="" />
       </div>
       <h2 className="text-1xl font-bold mb-4">Contact Details</h2>
-
+      <div className=" my-4 grid w-full max-w-sm items-center gap-3">
+        <Label htmlFor="phone">Phone</Label>
+        <Input type="text" id="phone" placeholder="" />
+      </div>
+      <div className=" my-4 grid w-full max-w-sm items-center gap-3">
+        <Label htmlFor="email">Email</Label>
+        <Input type="text" id="email" placeholder="" />
+      </div>
       <h2 className="text-1xl font-bold mb-4">Other Information</h2>
       <div className=" my-4 grid w-full max-w-sm items-center gap-3">
         <Label htmlFor="mnemonic">Mnemonic</Label>
