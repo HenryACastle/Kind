@@ -11,13 +11,15 @@ export async function POST(req: NextRequest) {
     const id = url.pathname.split('/').filter(Boolean).at(-2); // gets the [id] from /api/contacts/[id]/add-note
     const contactId = Number(id);
 
-    const { note: noteText, relatedDate } = await req.json();
-    const today = new Date();
+    const { note: noteText } = await req.json();
     // Insert note
 
     const inserted = await db.insert(note).values({
       noteText: noteText,
+      
+      
     }).returning()
+
    // const inserted = await db.insert(note).values({
     //  noteText: noteText,
     //  createdOn: today,
