@@ -28,7 +28,7 @@ export const contact = pgTable("contact", {
 
 export const note = pgTable("note", {
 	noteId: integer().primaryKey().generatedAlwaysAsIdentity(),
-	noteText: varchar(),
+	noteText: varchar({ length: 1000 }),
 	createdOn: date(),
 	relatedDate: date(),
 });
