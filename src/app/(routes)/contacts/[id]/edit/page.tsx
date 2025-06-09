@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-export default async function EditContactPage({ params }: { params: Promise<{ id: string; }> }) {
-  const id = Number((await params).id);
+export default async function EditContactPage({ params }: { params: { id: string } }) {
+  const id = Number(params.id);
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -99,9 +99,9 @@ export default async function EditContactPage({ params }: { params: Promise<{ id
         {loading ? "Saving..." : "Save"}
       </button>
       <Link href={`/contacts/${id}`}>
-      <Button>
-      Cancel
-      </Button>
+        <Button>
+          Cancel
+        </Button>
       </Link>
       {error && <div className="text-red-600 mt-2">{error}</div>}
     </form>
