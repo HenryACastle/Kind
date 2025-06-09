@@ -99,9 +99,9 @@ export default function EditContactPage({ params }: { params: { id: string } }) 
         {loading ? "Saving..." : "Save"}
       </button>
       <Link href={`/contacts/${id}`}>
-        <Button>
-          Cancel
-        </Button>
+      <Button>
+      Cancel
+      </Button>
       </Link>
       {error && <div className="text-red-600 mt-2">{error}</div>}
     </form>
