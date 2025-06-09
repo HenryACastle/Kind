@@ -41,17 +41,26 @@ export default function NewContactPage() {
 
   return (
     <form className="p-8 max-w-lg mx-auto" onSubmit={handleSubmit}>
-      <h1 className="text-2xl font-bold mb-4">New Contact</h1>
-      <div className="grid w-full max-w-sm items-center gap-3">
-      <Label htmlFor="email">Email</Label>
-      <Input type="email" id="email" placeholder="Email" />
-    </div>
-    <div className=" my-6 grid w-full max-w-sm items-center gap-3">
-      <Label htmlFor="email">First Name</Label>
-      <Input type="text" id="firstName" placeholder="" />
-    </div>
+      <h1 className="text-2xl font-bold mb-8">New Contact</h1>
       
-      
+      <div className=" my-4 grid w-full max-w-sm items-center gap-3">
+        <Label htmlFor="firstName">First Name</Label>
+        <Input type="text" id="firstName" placeholder="" />
+      </div>
+      <div className=" my-4 grid w-full max-w-sm items-center gap-3">
+        <Label htmlFor="middleName">Middle Name</Label>
+        <Input type="text" id="middleName" placeholder="" />
+      </div>
+      <div className=" my-4 grid w-full max-w-sm items-center gap-3">
+        <Label htmlFor="lastName">Last Name</Label>
+        <Input type="text" id="lastName" placeholder="" />
+      </div>
+      <div className=" my-4 grid w-full max-w-sm items-center gap-3">
+        <Label htmlFor="suffix">Suffix</Label>
+        <Input type="text" id="suffix" placeholder="" />
+      </div>
+
+
       <label className="block mb-2">First Name
         <input
           name="firstName"
