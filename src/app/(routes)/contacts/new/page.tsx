@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function NewContactPage() {
   const router = useRouter();
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: unknown) => {
     const res = await fetch("/api/contacts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

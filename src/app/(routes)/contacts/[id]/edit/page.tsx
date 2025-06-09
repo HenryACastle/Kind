@@ -7,7 +7,7 @@ import { useEffect, useState, use } from "react";
 export default function EditContactPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const router = useRouter();
-  const [initialData, setInitialData] = useState<any>(null);
+  const [initialData, setInitialData] = useState<unknown>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
     fetchContact();
   }, [id]);
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: unknown) => {
     const res = await fetch(`/api/contacts/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
