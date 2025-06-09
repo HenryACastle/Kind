@@ -27,20 +27,20 @@ export default async function ContactDetailPage({ params }: { params: { id: stri
   return (
     <div className="px-4 max-w-lg mx-auto">
       <div className="flex justify-between items-center align-middle">
-      <h1 className="text-2xl font-bold mb-4">
-        {[c.firstName, c.middleName, c.lastName, c.suffix].filter(Boolean).join(' ')}
-      </h1>
-      <Link href={`/contacts/${id}/edit`}>
-        <Button>
-          <Pencil />
-        </Button>
-      </Link>
+        <h1 className="text-2xl font-bold mb-4">
+          {[c.firstName, c.middleName, c.lastName, c.suffix].filter(Boolean).join(' ')}
+        </h1>
+        <Link href={`/contacts/${id}/edit`}>
+          <Button>
+            <Pencil />
+          </Button>
+        </Link>
       </div>
       <div className="mb-2"><span className="font-semibold">Email:</span> {c.email || '-'}</div>
       <div className="mb-2"><span className="font-semibold">Phone:</span> {c.phone || '-'}</div>
       <div className="mb-2"><span className="font-semibold">Nickname:</span> {c.nickname || '-'}</div>
       <div className="mb-2"><span className="font-semibold">Mnemonic:</span> {c.mnemonic || '-'}</div>
-      <div className="mb-2"><span className="font-semibold">Suffix:</span> {c.suffix || '-'}</div>
+      <div className="mb-2"><span className="font-semibold">Birth Date:</span> {c.birthDate ? new Date(c.birthDate).toLocaleDateString() : '-'}</div>
       {/* Add more fields as needed */}
       <div className="mt-6">
         <NoteForm contactId={id} />

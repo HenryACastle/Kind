@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function EditContactPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+  const id = Number(params.id);
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -99,9 +99,9 @@ export default function EditContactPage({ params }: { params: { id: string } }) 
         {loading ? "Saving..." : "Save"}
       </button>
       <Link href={`/contacts/${id}`}>
-      <Button>
-      Cancel
-      </Button>
+        <Button>
+          Cancel
+        </Button>
       </Link>
       {error && <div className="text-red-600 mt-2">{error}</div>}
     </form>
