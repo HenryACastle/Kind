@@ -8,8 +8,8 @@ import Link from 'next/link';
 
 const db = drizzle(process.env.DATABASE_URL!);
 
-export default async function ContactDetailPage({ params }: { params: { id: string } }) {
-  const id = Number(params.id);
+export default async function ContactDetailPage() {
+  const id = 1;
   const contacts = await db.select().from(contact).where(eq(contact.id, id));
   const c = contacts[0];
 
