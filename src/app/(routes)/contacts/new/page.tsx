@@ -46,14 +46,12 @@ export default function NewContactPage() {
       <Label htmlFor="email">Email</Label>
       <Input type="email" id="email" placeholder="Email" />
     </div>
+    <div className=" my-6 grid w-full max-w-sm items-center gap-3">
+      <Label htmlFor="email">First Name</Label>
+      <Input type="text" id="firstName" placeholder="" />
+    </div>
       
-      <Input name="firstName"
-        value={firstName}
-        onChange={e => setFirstName(e.target.value)}
-        className="border rounded p-2 w-full"
-        disabled={loading}>
-
-      </Input>
+      
       <label className="block mb-2">First Name
         <input
           name="firstName"
