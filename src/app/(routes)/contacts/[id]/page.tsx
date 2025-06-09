@@ -1,3 +1,5 @@
+"use client";
+
 import { drizzle } from 'drizzle-orm/neon-http';
 import { eq, inArray } from 'drizzle-orm';
 import { contact, noteMapping, note } from '@/db/schema';

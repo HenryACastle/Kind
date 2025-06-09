@@ -42,7 +42,7 @@ export default function NewContactPage() {
   return (
     <form className="p-8 max-w-lg mx-auto" onSubmit={handleSubmit}>
       <h1 className="text-2xl font-bold mb-8">New Contact</h1>
-      
+      <h2 className="text-1xl font-bold mb-4">Name Information</h2>
       <div className=" my-4 grid w-full max-w-sm items-center gap-3">
         <Label htmlFor="firstName">First Name</Label>
         <Input type="text" id="firstName" placeholder="" />
