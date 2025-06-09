@@ -64,6 +64,10 @@ export default function NewContactPage() {
         <Label htmlFor="mnemonic">Mnemonic</Label>
         <Input type="text" id="mnemonic" placeholder="" />
       </div>
+      <div className=" my-4 grid w-full max-w-sm items-center gap-3">
+        <Label htmlFor="summary">Summary</Label>
+        <Input type="text" id="summary" placeholder="" />
+      </div>
 
       <label className="block mb-2">First Name
         <input

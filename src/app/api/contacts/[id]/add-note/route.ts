@@ -4,9 +4,13 @@ import { note, noteMapping } from '@/db/schema';
 
 const db = drizzle(process.env.DATABASE_URL!);
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest) {
   try {
-    const contactId = Number(params.id);
+    // Extract id from the URL
+    const url = new URL(req.url);
+    const id = url.pathname.split('/').filter(Boolean).at(-2); // gets the [id] from /api/contacts/[id]/add-note
+    const contactId = Number(id);
+
     const { note: noteText, relatedDate } = await req.json();
     const today = new Date();
     // Insert note
