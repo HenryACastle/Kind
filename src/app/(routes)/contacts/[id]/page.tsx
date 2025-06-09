@@ -1,5 +1,3 @@
-"use client";
-
 import { drizzle } from 'drizzle-orm/neon-http';
 import { eq, inArray } from 'drizzle-orm';
 import { contact, noteMapping, note } from '@/db/schema';
@@ -7,19 +5,17 @@ import NoteForm from './NoteForm';
 import { Button } from '@/components/ui/button';
 import { Pencil } from 'lucide-react';
 import Link from 'next/link';
-import { use } from 'react';
 
 const db = drizzle(process.env.DATABASE_URL!);
 
-export default async function ContactDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const {id} = use(params);
-  const contacts = await db.select().from(contact).where(eq(contact.id, Number(id)));
+export default async function ContactDetailPage({ params }: { params: { id: string } }) {
+  const id = Number(params.id);
+  const contacts = await db.select().from(contact).where(eq(contact.id, id));
   const c = contacts[0];
 
   if (!c) return <div className="p-8">Contact not found</div>;
 
-  // Get all note mappings for this contact
-  const mappings = await db.select().from(noteMapping).where(eq(noteMapping.contactId, Number(id)));
+  const mappings = await db.select().from(noteMapping).where(eq(noteMapping.contactId, id));
   const noteIds = mappings.map(m => m.noteId);
   let notes: typeof note.$inferSelect[] = [];
   const filteredNoteIds = noteIds.filter((id): id is number => typeof id === 'number');
@@ -46,7 +42,7 @@ export default async function ContactDetailPage({ params }: { params: Promise<{ 
       <div className="mb-2"><span className="font-semibold">Birth Date:</span> {c.birthDate ? new Date(c.birthDate).toLocaleDateString() : '-'}</div>
       {/* Add more fields as needed */}
       <div className="mt-6">
-        <NoteForm contactId={Number(id)} />
+        <NoteForm contactId={id} />
         <h2 className="text-lg font-semibold mb-2 mt-6">Notes</h2>
         {notes.length === 0 ? (
           <div className="text-gray-500">No notes for this contact.</div>

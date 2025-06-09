@@ -59,7 +59,11 @@ export default function NewContactPage() {
         <Label htmlFor="suffix">Suffix</Label>
         <Input type="text" id="suffix" placeholder="" />
       </div>
-
+      <h2 className="text-1xl font-bold mb-4">Other Information</h2>
+      <div className=" my-4 grid w-full max-w-sm items-center gap-3">
+        <Label htmlFor="mnemonic">Mnemonic</Label>
+        <Input type="text" id="mnemonic" placeholder="" />
+      </div>
 
       <label className="block mb-2">First Name
         <input
