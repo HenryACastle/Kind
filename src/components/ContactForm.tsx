@@ -36,7 +36,7 @@ type ContactFormProps = {
 export default function ContactForm({ initialData = {}, onSubmit, submitLabel = "Create" }: ContactFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Initialize form state with initialData or empty strings
   const [formData, setFormData] = useState<ContactFormData>({
     firstName: initialData.firstName || "",
@@ -80,9 +80,9 @@ export default function ContactForm({ initialData = {}, onSubmit, submitLabel = 
   };
 
   return (
-    <form className="p-8 max-w-lg mx-auto" onSubmit={handleSubmit}>
+    <form className="max-w-lg mx-auto" onSubmit={handleSubmit}>
       <h1 className="text-2xl font-bold mb-8">Contact Information</h1>
-      
+
       <h2 className="text-1xl font-bold mb-4 mt-6">Name Information</h2>
       <div className="my-4 grid w-full max-w-sm items-center gap-3">
         <Label htmlFor="firstName">First Name</Label>
@@ -110,7 +110,7 @@ export default function ContactForm({ initialData = {}, onSubmit, submitLabel = 
           id="lastName"
           value={formData.lastName}
           onChange={handleChange("lastName")}
-          
+
         />
       </div>
       <div className="my-4 grid w-full max-w-sm items-center gap-3">
@@ -133,6 +133,7 @@ export default function ContactForm({ initialData = {}, onSubmit, submitLabel = 
       </div>
 
       <h2 className="text-1xl font-bold mb-4 mt-6">Contact Details</h2>
+      <div>
       <div className="my-4 grid w-full max-w-sm items-center gap-3">
         <Label htmlFor="phone">Phone</Label>
         <Input
@@ -160,8 +161,9 @@ export default function ContactForm({ initialData = {}, onSubmit, submitLabel = 
           onChange={handleChange("address")}
         />
       </div>
+      </div>
 
-      <h2 className="text-1xl font-bold mb-4 mt-6">Other Information</h2>
+      <h2 className="text-1xl font-bold mb-4 mt-6">Additional Information</h2>
       <div className="my-4 grid w-full max-w-sm items-center gap-3">
         <Label htmlFor="mnemonic">Mnemonic</Label>
         <Input
@@ -228,7 +230,7 @@ export default function ContactForm({ initialData = {}, onSubmit, submitLabel = 
         />
       </div>
 
-      <h2 className="text-1xl font-bold mb-4 mt-6">Work Info</h2>
+      <h2 className="text-1xl font-bold mb-4 mt-6">Work Information</h2>
       <div className="my-4 grid w-full max-w-sm items-center gap-3">
         <Label htmlFor="jobTitle">Job Title</Label>
         <Input
@@ -248,7 +250,7 @@ export default function ContactForm({ initialData = {}, onSubmit, submitLabel = 
         />
       </div>
 
-      <h2 className="text-1xl font-bold mb-4 mt-6">Other Info</h2>
+      <h2 className="text-1xl font-bold mb-4 mt-6">Other Information</h2>
       <div className="my-4 grid w-full max-w-sm items-center gap-3">
         <Label htmlFor="mainNationality">Main Nationality</Label>
         <Input
@@ -268,9 +270,16 @@ export default function ContactForm({ initialData = {}, onSubmit, submitLabel = 
         />
       </div>
 
-      <Button type="submit" disabled={loading}>
-        {loading ? "Saving..." : submitLabel}
-      </Button>
+
+      <div className="flex w-full gap-2">
+
+        <Button disabled={loading}>
+          Cancel
+        </Button>
+        <Button type="submit" disabled={loading}>
+          {loading ? "Saving..." : submitLabel}
+        </Button>
+      </div>
       {error && <div className="text-red-600 mt-2">{error}</div>}
     </form>
   );

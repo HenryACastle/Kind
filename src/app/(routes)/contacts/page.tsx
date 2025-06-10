@@ -71,7 +71,7 @@ export default async function ContactsPage() {
                     {[c.firstName, c.middleName, c.lastName].filter(Boolean).join(' ')}
                   </span>
                   <span className="text-xs text-gray-500">
-                    {(c.nickname || "") + " "} ● {" " + (c.mnemonic || "")}
+                    {(c.nickname || "") + " "} - {" " + (c.mnemonic || "")}
                   </span>
                 </Link>
               </td>

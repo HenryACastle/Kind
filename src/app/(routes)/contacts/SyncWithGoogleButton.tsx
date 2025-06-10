@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export default function SyncWithGoogleButton() {
@@ -29,13 +30,13 @@ export default function SyncWithGoogleButton() {
 
   return (
     <div className="flex flex-col items-end">
-      <button
+      <Button
         onClick={handleSync}
         disabled={loading}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-60"
+      
       >
         {loading ? "Syncing..." : "Sync with Google"}
-      </button>
+      </Button>
       {status && (
         <span className="mt-1 text-sm text-gray-600">{status}</span>
       )}

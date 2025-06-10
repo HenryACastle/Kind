@@ -33,30 +33,39 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <ClerkProvider>
-      <header className="flex justify-end items-center p-4 gap-4 h-16">
-        <SignedOut>
-          <SignInButton />
-          <SignUpButton />
-        </SignedOut>
-        <SignedIn>
-          <Link href="/contacts">
-            <Button size="icon">
-              <Users />
-            </Button>
-          </Link>
-          <UserButton />
-
-        </SignedIn>
-      </header>
       <html lang="en">
-
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
+        <body className="flex flex-col min-h-screen h-full">
+          <header className="flex justify-end items-center p-4 gap-4 h-16">
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton />
+            </SignedOut>
+            <SignedIn>
+              <Link href="/contacts">
+                <Button size="icon">
+                  <Users />
+                </Button>
+              </Link>
+              <UserButton />
+            </SignedIn>
+          </header>
+          <main className="flex-1">{children}</main>
+          <footer className="p-4 bg-white md:p-8 lg:p-10 dark:bg-gray-800">
+            <div className="mx-auto max-w-screen-xl text-center">
+              <p className="my-6 text-gray-500 dark:text-gray-400">A contact management system with purpose.</p>
+              <ul className="flex flex-wrap justify-center items-center mb-6 text-gray-900 dark:text-white">
+                <li>
+                  <a href="https://henryacastillo.com/" target="_blank" rel="noopener noreferrer" className="mr-4 hover:underline md:mr-6 ">About Henry</a>
+                </li>
+                <li>
+                  <a href="#" className="mr-4 hover:underline md:mr-6">Contact</a>
+                </li>
+              </ul>
+              <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="#" className="hover:underline">Kind by Yeve</a>. All Rights Reserved.</span>
+            </div>
+          </footer>
         </body>
       </html>
     </ClerkProvider>
