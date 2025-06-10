@@ -17,6 +17,24 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: "Kind: Better Contact App",
   description: "A contact management solution focused on helping to grow your network and provide value to your relationships.",
+  openGraph: {
+    title: "Kind: Better Contact App",
+    description: "A contact management solution focused on helping to grow your network and provide value to your relationships.",
+    images: [
+      {
+        url: "/kind_logo_yellow_bg.png", // path relative to public/
+        width: 500,
+        height: 500,
+        alt: "Kind Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kind: Better Contact App",
+    description: "A contact management solution focused on helping to grow your network and provide value to your relationships.",
+    images: ["/kind_logo_yellow_bg.png"],
+  },
 };
 
 export default function RootLayout({
@@ -27,6 +45,12 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <head>
+          {/* ...other tags... */}
+          <meta property="og:image" content="/kind_logo_yellow_bg.png" />
+          <meta name="twitter:image" content="/kind_logo_yellow_bg.png" />
+          <meta name="twitter:card" content="summary_large_image" />
+        </head>
         <body className="flex flex-col min-h-screen h-full">
           <header className="flex justify-end items-center p-4 gap-4 h-16">
             <SignedOut>
