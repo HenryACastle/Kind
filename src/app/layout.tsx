@@ -7,7 +7,6 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs';
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Button } from "@/components/ui/button";
 import { Users } from "lucide-react";
