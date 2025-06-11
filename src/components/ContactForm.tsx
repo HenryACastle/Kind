@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
 type ContactFormData = {
   firstName: string;
@@ -175,7 +176,7 @@ export default function ContactForm({ initialData = {}, onSubmit, submitLabel = 
       </div>
       <div className="my-4 grid w-full max-w-sm items-center gap-3">
         <Label htmlFor="summary">Summary</Label>
-        <Input
+        <Textarea
           type="text"
           id="summary"
           value={formData.summary}

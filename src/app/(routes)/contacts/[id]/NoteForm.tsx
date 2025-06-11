@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export default function NoteForm({ contactId }: { contactId: number }) {
@@ -41,14 +42,14 @@ export default function NoteForm({ contactId }: { contactId: number }) {
   }
 
   return (
-    <div className="mb-4">
+    <div className="mb-4">  
       {!open ? (
-        <button
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        <Button
+          
           onClick={() => setOpen(true)}
         >
           + Add Note
-        </button>
+        </Button>
       ) : (
         <form onSubmit={handleSubmit} className="bg-gray-50 p-4 rounded shadow mt-2 flex flex-col gap-2">
           <label className="font-semibold">Note</label>

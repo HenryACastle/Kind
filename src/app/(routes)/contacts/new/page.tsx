@@ -7,7 +7,7 @@ export default function NewContactPage() {
   const router = useRouter();
 
   const handleSubmit = async (data: unknown) => {
-    const res = await fetch("/api/contacts", {
+    const res = await fetch("/api/contacts/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -17,7 +17,12 @@ export default function NewContactPage() {
       throw new Error("Failed to create contact");
     }
     
-    router.push("/contacts");
+    const result = await res.json();
+    if (result.id) {
+      router.push(`/contacts/${result.id}`);
+    } else {
+      router.push("/contacts");
+    }
   };
 
   return <ContactForm onSubmit={handleSubmit} />;
