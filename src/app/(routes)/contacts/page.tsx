@@ -2,7 +2,7 @@ import { drizzle } from 'drizzle-orm/neon-http';
 import { contact } from '@/db/schema';
 import SyncWithGoogleButton from './SyncWithGoogleButton';
 import Link from 'next/link';
-import { UserRoundPlus } from 'lucide-react';
+import { Pencil, UserRoundPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // You may want to move this to a shared db client file in the future
@@ -36,7 +36,7 @@ export default async function ContactsPage() {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow p-8 max-w-3xl mx-auto mt-10">
+    <div className="max-w-3xl mx-auto ">
       <div className="mb-4 flex justify-between items-center">
         <h2 className="text-2xl font-semibold">Contacts <span className="text-gray-400 text-base">({contacts.length})</span></h2>
         <SyncWithGoogleButton />
@@ -51,6 +51,7 @@ export default async function ContactsPage() {
           <tr className="text-left border-b">
             <th className="py-2"> </th>
             <th className="py-2">Name</th>
+            <th className="py-2">Actions</th>
 
           </tr>
         </thead>
@@ -73,6 +74,13 @@ export default async function ContactsPage() {
                   <span className="text-xs text-gray-500">
                     {(c.nickname || "") + " "} - {" " + (c.mnemonic || "")}
                   </span>
+                </Link>
+              </td>
+              <td className="align-middle">
+                <Link href={`/contacts/${c.id}/edit`} className="">
+                  <Button>
+                    <Pencil />
+                  </Button>
                 </Link>
               </td>
             </tr>

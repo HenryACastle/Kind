@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { drizzle } from "drizzle-orm/neon-http";
-import { contact, noteMapping, note } from "@/db/schema";
+import { contact, noteMapping, note, phone } from "@/db/schema";
 import { eq, inArray, not, and } from "drizzle-orm";
 
 const db = drizzle(process.env.DATABASE_URL!);
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
-  const id = url.pathname.split('/').filter(Boolean).at(2); 
+  const id = url.pathname.split('/').filter(Boolean).at(2);
   if (!id || isNaN(Number(id))) {
     return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   }
@@ -26,8 +26,11 @@ export async function GET(req: NextRequest) {
     notes = await db.select().from(note).where(inArray(note.noteId, filteredNoteIds));
   }
 
-  return NextResponse.json({ contact: c, notes });
-} 
+  // Fetch phone numbers for this contact
+  const phones = await db.select().from(phone).where(eq(phone.contactId, Number(id)));
+
+  return NextResponse.json({ contact: c, notes, phones });
+}
 
 export async function PUT(req: NextRequest) {
   try {
@@ -52,6 +55,7 @@ export async function PUT(req: NextRequest) {
       company = "",
       mainNationality = "",
       secondaryNationality = "",
+      phones = [],
     } = data;
 
     // Check for duplicate (excluding this contact)
@@ -88,6 +92,21 @@ export async function PUT(req: NextRequest) {
         secondaryNationality,
       })
       .where(eq(contact.id, Number(id)));
+
+    // Delete existing phone numbers for the contact
+    await db.delete(phone).where(eq(phone.contactId, Number(id)));
+
+    // Insert new phone numbers for the contact
+    for (const p of phones) {
+      if (p.phoneNumber.trim()) {
+        await db.insert(phone).values({
+          phoneNumber: p.phoneNumber,
+          label: p.label,
+          ordinal: p.ordinal,
+          contactId: Number(id),
+        });
+      }
+    }
 
     return NextResponse.json({ success: true, redirect: `/contacts/${id}` });
   } catch (err: unknown) {

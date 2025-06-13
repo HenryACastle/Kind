@@ -73,8 +73,8 @@ export const phone = pgTable("phone", {
 	phoneId: integer().primaryKey().generatedAlwaysAsIdentity(),
 	phoneNumber: text(),
 	label: text(),
-	ordinal: text(),
-	contactId: text().notNull(),
+	ordinal: integer(),
+	contactId: integer().notNull(),
 });
 
 export const email = pgTable("email", {

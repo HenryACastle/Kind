@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { drizzle } from "drizzle-orm/neon-http";
-import { contact } from "@/db/schema";
+import { contact, phone } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 
 const db = drizzle(process.env.DATABASE_URL!);
@@ -62,6 +62,18 @@ export async function POST(req: NextRequest) {
     const newContact = result[0];
     if (!newContact) {
       return NextResponse.json({ error: "Failed to create contact." }, { status: 500 });
+    }
+
+    // Insert phone numbers
+    for (const p of data.phones || []) {
+      if (p.phoneNumber && p.phoneNumber.trim()) {
+        await db.insert(phone).values({
+          phoneNumber: p.phoneNumber,
+          label: p.label,
+          ordinal: p.ordinal,
+          contactId: Number(newContact.id),
+        });
+      }
     }
 
     return NextResponse.json({ success: true, id: newContact.id });
