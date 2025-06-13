@@ -19,10 +19,10 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
                 setInitialData({
                     ...data.contact,
                     phones: data.phones && Array.isArray(data.phones)
-                        ? data.phones.map((p: any) => ({
-                            phoneNumber: p.phoneNumber || "",
-                            label: p.label || "",
-                            ordinal: p.ordinal || "",
+                        ? data.phones.map((p: unknown) => ({
+                            phoneNumber: (p as { phoneNumber?: string }).phoneNumber || "",
+                            label: (p as { label?: string }).label || "",
+                            ordinal: (p as { ordinal?: number }).ordinal || "",
                         }))
                         : [{ phoneNumber: "", label: "", ordinal: "" }],
                 });

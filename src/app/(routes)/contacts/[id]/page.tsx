@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import NoteForm from "./NoteForm";
 import { Button } from "@/components/ui/button";
-import { Pencil, Info } from "lucide-react";
+import { Pencil } from "lucide-react";
 import Link from "next/link";
 import ContactField from "@/components/ContactField";
 import LoadingAnimation from "@/components/LoadingAnimation";
