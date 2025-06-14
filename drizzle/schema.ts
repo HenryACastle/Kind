@@ -10,7 +10,7 @@ export const todo = pgTable("todo", {
 });
 
 export const phone = pgTable("phone", {
-	phoneId: integer().primaryKey().generatedAlwaysAsIdentity({ name: ""phone_phoneId_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647 }),
+	phoneId: integer().primaryKey().generatedAlwaysAsIdentity(),
 	phoneNumber: text(),
 	label: text(),
 	contactId: integer(),
@@ -18,7 +18,7 @@ export const phone = pgTable("phone", {
 });
 
 export const contact = pgTable("contact", {
-	id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "contact_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
+	id: integer().primaryKey().generatedAlwaysAsIdentity(),
 	firstName: text(),
 	middleName: text(),
 	lastName: text(),
@@ -45,20 +45,20 @@ export const contact = pgTable("contact", {
 });
 
 export const note = pgTable("note", {
-	noteId: integer().primaryKey().generatedAlwaysAsIdentity({ name: ""note_noteId_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647 }),
+	noteId: integer().primaryKey().generatedAlwaysAsIdentity(),
 	noteText: varchar({ length: 1000 }),
 	createdOn: date(),
 	relatedDate: date(),
 });
 
 export const noteMapping = pgTable("noteMapping", {
-	noteMappingid: integer().primaryKey().generatedAlwaysAsIdentity({ name: ""noteMapping_noteMappingid_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647 }),
+	noteMappingid: integer().primaryKey().generatedAlwaysAsIdentity(),
 	noteId: integer(),
 	contactId: integer(),
 });
 
 export const users = pgTable("users", {
-	id: integer().primaryKey().generatedAlwaysAsIdentity({ name: "users_id_seq", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647, cache: 1 }),
+	id: integer().primaryKey().generatedAlwaysAsIdentity(),
 	name: varchar({ length: 255 }).notNull(),
 	age: integer().notNull(),
 	email: varchar({ length: 255 }).notNull(),
@@ -67,7 +67,7 @@ export const users = pgTable("users", {
 ]);
 
 export const email = pgTable("email", {
-	emailId: integer().primaryKey().generatedAlwaysAsIdentity({ name: ""email_emailId_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647 }),
+	emailId: integer().primaryKey().generatedAlwaysAsIdentity(),
 	email: text(),
 	label: text(),
 	contactId: integer(),
@@ -75,7 +75,7 @@ export const email = pgTable("email", {
 });
 
 export const address = pgTable("address", {
-	addressId: integer().primaryKey().generatedAlwaysAsIdentity({ name: ""address_addressId_seq"", startWith: 1, increment: 1, minValue: 1, maxValue: 2147483647 }),
+	addressId: integer().primaryKey().generatedAlwaysAsIdentity(),
 	addressText: text(),
 	ordinal: integer(),
 	label: text(),
