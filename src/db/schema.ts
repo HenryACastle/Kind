@@ -37,6 +37,8 @@ export const contact = pgTable("contact", {
 	company: text(),
 
 	// Other Info
+	birthMonthDate: text(),
+	birthYear: text(),
 	mainNationality: text(),
 	secondaryNationality: text(),
 
@@ -44,7 +46,6 @@ export const contact = pgTable("contact", {
 	phone: integer(),
 	email: integer(),
 	googleResourceName: text(),
-	birthDate: date(),
 
 
 
@@ -81,6 +82,7 @@ export const email = pgTable("email", {
 	emailId: integer().primaryKey().generatedAlwaysAsIdentity(),
 	email: text(),
 	label: text(),
+	ordinal: integer(),
 	contactId: integer(),
 });
 
@@ -88,4 +90,12 @@ export const todo = pgTable("todo", {
 	id: integer().primaryKey().notNull(),
 	text: text().notNull(),
 	done: boolean().default(false).notNull(),
+});
+
+export const address = pgTable("address", {
+	addressId: integer().primaryKey().generatedAlwaysAsIdentity(),
+	addressText: text(),
+	ordinal: integer(),
+	label: text(),
+	contactId: integer(),
 });

@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import NoteForm from "./NoteForm";
 import { Button } from "@/components/ui/button";
-import { Pencil } from "lucide-react";
+import { Pencil, Phone, MessageSquare, Copy } from "lucide-react";
 import Link from "next/link";
 import ContactField from "@/components/ContactField";
 import LoadingAnimation from "@/components/LoadingAnimation";
+import { formatPhoneNumber } from "@/lib/utils";
 
 // Types for fetched data
 type Note = {
@@ -38,6 +39,8 @@ type Contact = {
   company?: string;
   mainNationality?: string;
   secondaryNationality?: string;
+  birthMonthDate?: string;
+  birthYear?: string;
 };
 
 type Phone = {
@@ -48,6 +51,21 @@ type Phone = {
   phoneNumber: string;
 };
 
+type Email = {
+  emailId: number;
+  email: string;
+  label?: string;
+  contactId: number;
+};
+
+type Address = {
+  addressId: number;
+  addressText: string;
+  label?: string;
+  ordinal?: number;
+  contactId: number;
+};
+
 export default function ContactDetailPage() {
   const params = useParams();
   const id = params.id as string;
@@ -55,6 +73,8 @@ export default function ContactDetailPage() {
   const [contact, setContact] = useState<Contact | null>(null);
   const [notes, setNotes] = useState<Note[]>([]);
   const [phones, setPhones] = useState<Phone[]>([]);
+  const [emails, setEmails] = useState<Email[]>([]);
+  const [addresses, setAddresses] = useState<Address[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -66,6 +86,8 @@ export default function ContactDetailPage() {
         setContact(data.contact);
         setNotes(data.notes);
         setPhones(data.phones);
+        setEmails(data.emails || []);
+        setAddresses(data.addresses || []);
       }
       setLoading(false);
     }
@@ -96,27 +118,108 @@ export default function ContactDetailPage() {
       <div className="mb-2">{contact.mnemonic || " "}</div>
 
       <div>
-        <h2 className="text-1xl font-bold mb-4 mt-6">Contact Details</h2>
+        <h2 className="text-lg font-semibold mb-2 mt-6">Contact Details</h2>
+
+        <h3 className="text-1xl font-bold my-2">Phone</h3>
         {phones.length > 0 ? (
           <div className="mb-2">
-            <span className="font-semibold">Phone</span>
+
             <ul>
               {phones.map((p) => (
-                <li key={p.phoneId}>{p.phoneNumber}</li>
+                <div key={p.phoneId} className="flex items-center gap-2 justify-between mb-2">
+                  <div>
+                    <span className="font-semibold">{formatPhoneNumber(p.phoneNumber)}</span>
+                    <span className="text-gray-500"> - </span>
+                    <span className="italic">{p.label}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={() => {
+                        navigator.clipboard.writeText(formatPhoneNumber(p.phoneNumber));
+                      }}
+                    >
+                      <Copy />
+                    </Button>
+                    <Link href={`tel:${p.phoneNumber}`}>
+                      <Button><Phone /></Button>
+                    </Link>
+                    <Link href={`sms:${p.phoneNumber}`}>
+                      <Button><MessageSquare /></Button>
+                    </Link>
+                  </div>
+                </div>
               ))}
             </ul>
           </div>
         ) : (
-          <div className="mb-2"><span className="font-semibold">Phone:</span> -</div>
+          <div className="mb-2"><span className="font-semibold italic">None Available</span> -</div>
         )}
-        <div className="mb-2"><span className="font-semibold">Email:</span> {contact.email || "-"}</div>
-
-        <div className="mb-2"><span className="font-semibold">Address:</span> {contact.email || "-"}</div>
+        <h3 className="text-1xl font-bold my-2">Email</h3>
+        {emails.length > 0 ? (
+          <div className="mb-2">
+            <ul>
+              {emails.map((e) => (
+                <div key={e.emailId} className="flex items-center gap-2 justify-between mb-2">
+                  <div>
+                    <span className="font-semibold">{e.email}</span>
+                    <span className="text-gray-500"> - </span>
+                    <span className="italic">{e.label}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={() => {
+                        navigator.clipboard.writeText(e.email);
+                      }}
+                    >
+                      <Copy />
+                    </Button>
+                    <Link href={`mailto:${e.email}`}>
+                      <Button>@</Button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div className="mb-2"><span className="font-semibold italic">None Available</span> -</div>
+        )}
+        <h3 className="text-1xl font-bold my-2">Address</h3>
+        {addresses.length > 0 ? (
+          <div className="mb-2">
+            <ul>
+              {addresses.map((a) => (
+                <div key={a.addressId} className="flex items-center gap-2 justify-between mb-2">
+                  <div>
+                    <span className="font-semibold">{a.addressText}</span>
+                    <span className="text-gray-500"> - </span>
+                    <span className="italic">{a.label}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={() => {
+                        navigator.clipboard.writeText(a.addressText);
+                      }}
+                    >
+                      <Copy />
+                    </Button>
+                    <Link href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.addressText)}`} target="_blank">
+                      <Button>Map</Button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div className="mb-2"><span className="font-semibold italic">None Available</span> -</div>
+        )}
 
       </div>
       <div>
+        <h2 className="text-lg font-semibold mb-2 mt-6">Additional Information</h2>
 
-        <h2 className="text-1xl font-bold mb-4 mt-6">Additional Information</h2>
+
 
         <ContactField label="Mnemonic" value={contact.mnemonic} />
 
@@ -141,7 +244,20 @@ export default function ContactDetailPage() {
       </div>
       <div>
         <h2 className="text-lg font-semibold mb-2 mt-6">Other Information</h2>
-        <ContactField label="Birth Date" value={contact.birthDate} />
+        <ContactField label="Birth Date" value={
+          contact.birthMonthDate
+            ? (() => {
+                const match = contact.birthMonthDate.match(/^--(\d{2})-(\d{2})$/);
+                if (!match) return "-";
+                const monthNum = match[1];
+                const day = match[2];
+                const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                const monthIdx = parseInt(monthNum, 10) - 1;
+                const month = monthNames[monthIdx] || monthNum;
+                return `${month} ${day}${contact.birthYear ? ", " + contact.birthYear : ""}`;
+              })()
+            : "-"
+        } />
         <ContactField label="Main Nationality" value={contact.mainNationality} />
         <ContactField label="Secondary Nationality" value={contact.secondaryNationality} />
 

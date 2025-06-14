@@ -10,7 +10,7 @@ const db = drizzle(process.env.DATABASE_URL!);
 
 async function getContacts() {
   // Fetch all contacts
-  return await db.select().from(contact).orderBy(contact.firstName);
+  return await db.select().from(contact).orderBy(contact.firstName, contact.middleName, contact.lastName, contact.suffix);
 }
 
 export default async function ContactsPage() {
@@ -69,7 +69,7 @@ export default async function ContactsPage() {
               <td className="align-middle">
                 <Link href={`/contacts/${c.id}`} className="flex flex-col justify-center no-underline w-full h-full">
                   <span className="font-medium">
-                    {[c.firstName, c.middleName, c.lastName].filter(Boolean).join(' ')}
+                    {[c.firstName, c.middleName, c.lastName, c.suffix].filter(Boolean).join(' ')}
                   </span>
                   <span className="text-xs text-gray-500">
                     {(c.nickname || "") + " "} - {" " + (c.mnemonic || "")}

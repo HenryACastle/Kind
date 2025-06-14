@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { drizzle } from "drizzle-orm/neon-http";
-import { contact, noteMapping, note, phone } from "@/db/schema";
+import { contact, noteMapping, note, phone, email, address } from "@/db/schema";
 import { eq, inArray, not, and } from "drizzle-orm";
 
 const db = drizzle(process.env.DATABASE_URL!);
@@ -29,7 +29,13 @@ export async function GET(req: NextRequest) {
   // Fetch phone numbers for this contact
   const phones = await db.select().from(phone).where(eq(phone.contactId, Number(id)));
 
-  return NextResponse.json({ contact: c, notes, phones });
+  // Fetch emails for this contact
+  const emails = await db.select().from(email).where(eq(email.contactId, Number(id)));
+
+  // Fetch addresses for this contact
+  const addresses = await db.select().from(address).where(eq(address.contactId, Number(id)));
+
+  return NextResponse.json({ contact: c, notes, phones, emails, addresses });
 }
 
 export async function PUT(req: NextRequest) {
@@ -56,6 +62,10 @@ export async function PUT(req: NextRequest) {
       mainNationality = "",
       secondaryNationality = "",
       phones = [],
+      emails = [],
+      addresses = [],
+      birthMonthDate = "",
+      birthYear = "",
     } = data;
 
     // Check for duplicate (excluding this contact)
@@ -90,6 +100,8 @@ export async function PUT(req: NextRequest) {
         company,
         mainNationality,
         secondaryNationality,
+        birthMonthDate,
+        birthYear,
       })
       .where(eq(contact.id, Number(id)));
 
@@ -103,6 +115,33 @@ export async function PUT(req: NextRequest) {
           phoneNumber: p.phoneNumber,
           label: p.label,
           ordinal: p.ordinal,
+          contactId: Number(id),
+        });
+      }
+    }
+
+    // Delete existing emails for the contact
+    await db.delete(email).where(eq(email.contactId, Number(id)));
+    // Insert new emails for the contact
+    for (const e of emails) {
+      if (e.email.trim()) {
+        await db.insert(email).values({
+          email: e.email,
+          label: e.label,
+          contactId: Number(id),
+        });
+      }
+    }
+
+    // Delete existing addresses for the contact
+    await db.delete(address).where(eq(address.contactId, Number(id)));
+    // Insert new addresses for the contact
+    for (const a of addresses) {
+      if (a.address.trim()) {
+        await db.insert(address).values({
+          addressText: a.address,
+          label: a.label,
+          ordinal: a.ordinal ? Number(a.ordinal) : undefined,
           contactId: Number(id),
         });
       }

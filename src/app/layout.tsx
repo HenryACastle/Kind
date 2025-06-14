@@ -11,6 +11,7 @@ import "./globals.css";
 import { Button } from "@/components/ui/button";
 import { Users } from "lucide-react";
 import Link from 'next/link';
+import { Toaster } from "@/components/ui/sonner";
 
 
 
@@ -66,7 +67,8 @@ export default function RootLayout({
               <UserButton />
             </SignedIn>
           </header>
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 p-4">{children}</main>
+          <Toaster />
           <footer className="p-4 bg-white md:p-8 lg:p-10 dark:bg-gray-800">
             <div className="mx-auto max-w-screen-xl text-center">
               <p className="my-6 text-gray-500 dark:text-gray-400">A contact management system with purpose.</p>

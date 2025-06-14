@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function SyncWithGoogleButton() {
   const [status, setStatus] = useState<null | string>(null);
@@ -16,15 +17,16 @@ export default function SyncWithGoogleButton() {
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        setStatus("Sync complete!");
+        toast.success("Sync complete!", {
+          description: data.updatedContacts.length > 0 ? `Updated contacts: ${data.updatedContacts.join(', ')}` : 'No contacts were updated.',
+        });
       } else {
-        setStatus(`Sync failed: ${data.error || "Unknown error"}`);
+        toast.error(`Sync failed: ${data.error || "Unknown error"}`);
       }
     } catch (err: unknown) {
-      setStatus(`Sync failed: ${err instanceof Error ? err.message : "Unknown error"}`);
+      toast.error(`Sync failed: ${err instanceof Error ? err.message : "Unknown error"}`);
     } finally {
       setLoading(false);
-      setTimeout(() => setStatus(null), 4000);
     }
   }
 
@@ -37,9 +39,7 @@ export default function SyncWithGoogleButton() {
       >
         {loading ? "Syncing..." : "Sync with Google"}
       </Button>
-      {status && (
-        <span className="mt-1 text-sm text-gray-600">{status}</span>
-      )}
+      
     </div>
   );
 } 

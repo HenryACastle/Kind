@@ -22,9 +22,23 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
                         ? data.phones.map((p: unknown) => ({
                             phoneNumber: (p as { phoneNumber?: string }).phoneNumber || "",
                             label: (p as { label?: string }).label || "",
-                            ordinal: (p as { ordinal?: number }).ordinal || "",
+                            ordinal: (p as { ordinal?: number }).ordinal?.toString() || "",
                         }))
                         : [{ phoneNumber: "", label: "", ordinal: "" }],
+                    emails: data.emails && Array.isArray(data.emails)
+                        ? data.emails.map((e: unknown) => ({
+                            email: (e as { email?: string }).email || "",
+                            label: (e as { label?: string }).label || "",
+                            ordinal: (e as { ordinal?: number }).ordinal?.toString() || "",
+                        }))
+                        : [{ email: "", label: "", ordinal: "" }],
+                    addresses: data.addresses && Array.isArray(data.addresses)
+                        ? data.addresses.map((a: unknown) => ({
+                            address: (a as { addressText?: string }).addressText || "",
+                            label: (a as { label?: string }).label || "",
+                            ordinal: (a as { ordinal?: number }).ordinal?.toString() || "",
+                        }))
+                        : [{ address: "", label: "", ordinal: "" }],
                 });
             }
             setLoading(false);

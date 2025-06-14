@@ -8,6 +8,7 @@ const db = drizzle(process.env.DATABASE_URL!);
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
+    console.log('Received data:', data);
     const {
       firstName = "",
       middleName = "",
@@ -25,7 +26,10 @@ export async function POST(req: NextRequest) {
       company = "",
       mainNationality = "",
       secondaryNationality = "",
+      phones = [],
     } = data;
+
+    console.log('Phones data:', phones);
 
     // Check for duplicate
     const existing = await db.select().from(contact).where(
@@ -64,15 +68,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Failed to create contact." }, { status: 500 });
     }
 
+    console.log('Created contact:', newContact);
+
     // Insert phone numbers
-    for (const p of data.phones || []) {
+    for (const p of phones) {
       if (p.phoneNumber && p.phoneNumber.trim()) {
-        await db.insert(phone).values({
-          phoneNumber: p.phoneNumber,
-          label: p.label,
-          ordinal: p.ordinal,
-          contactId: Number(newContact.id),
-        });
+        try {
+          await db.insert(phone).values({
+            phoneNumber: p.phoneNumber,
+            label: p.label || '',
+            ordinal: p.ordinal || '1',
+            contactId: Number(newContact.id),
+          });
+          console.log('Inserted phone:', p);
+        } catch (error) {
+          console.error('Error inserting phone:', error);
+          // Continue with other phones even if one fails
+        }
       }
     }
 
