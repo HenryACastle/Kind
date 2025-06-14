@@ -6,22 +6,20 @@ import { CalendarIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-function formatDate(date: Date | undefined) {
+function formatDate(date: Date | undefined, showYear: boolean = true) {
   if (!date) {
     return ""
   }
-
   return date.toLocaleDateString("en-US", {
     day: "2-digit",
     month: "long",
-    year: "numeric",
+    ...(showYear ? { year: "numeric" } : {})
   })
 }
 
@@ -37,13 +35,13 @@ export function Calendar28({ value, onChange, showYear = true }: { value?: Date 
   const isControlled = typeof value !== 'undefined' && typeof onChange === 'function';
   const [internalDate, setInternalDate] = React.useState<Date | undefined>(value ?? undefined)
   const [month, setMonth] = React.useState<Date | undefined>(value ?? undefined)
-  const [inputValue, setInputValue] = React.useState(formatDate(value ?? internalDate))
+  const [inputValue, setInputValue] = React.useState(formatDate(value ?? internalDate, showYear))
 
   React.useEffect(() => {
     if (isControlled) {
-      setInputValue(formatDate(value ?? undefined));
+      setInputValue(formatDate(value ?? undefined, showYear));
     }
-  }, [value]);
+  }, [value, showYear]);
 
   const selectedDate = isControlled ? value ?? undefined : internalDate;
 
@@ -101,23 +99,33 @@ export function Calendar28({ value, onChange, showYear = true }: { value?: Date 
             alignOffset={-8}
             sideOffset={10}
           >
-            <Calendar
-              mode="single"
-              selected={selectedDate ? forceYear(selectedDate) ?? undefined : undefined}
-              captionLayout={showYear ? "dropdown" : "dropdown-months"}
-              month={month ? forceYear(month) ?? undefined : undefined}
-              onMonthChange={d => setMonth(forceYear(d) ?? undefined)}
-              onSelect={(date) => {
-                const forced = forceYear(date)
-                if (isControlled && onChange) {
-                  onChange(forced ?? null)
-                } else {
-                  setInternalDate(forced ?? undefined)
-                }
-                setInputValue(formatDate(forced ?? undefined))
-                setOpen(false)
-              }}
-            />
+            <div style={!showYear ? { position: 'relative' } : {}}>
+              <Calendar
+                mode="single"
+                selected={selectedDate ? forceYear(selectedDate) ?? undefined : undefined}
+                captionLayout={showYear ? "dropdown" : "dropdown-months"}
+                month={month ? forceYear(month) ?? undefined : undefined}
+                onMonthChange={d => setMonth(forceYear(d) ?? undefined)}
+                onSelect={(date) => {
+                  const forced = forceYear(date)
+                  if (isControlled && onChange) {
+                    onChange(forced ?? null)
+                  } else {
+                    setInternalDate(forced ?? undefined)
+                  }
+                  setInputValue(formatDate(forced ?? undefined, showYear))
+                  setOpen(false)
+                }}
+              />
+              {/* Hide year dropdown if showYear is false */}
+              {!showYear && (
+                <style>{`
+                  .rdp-caption_dropdowns select:last-child {
+                    display: none !important;
+                  }
+                `}</style>
+              )}
+            </div>
           </PopoverContent>
         </Popover>
       </div>
