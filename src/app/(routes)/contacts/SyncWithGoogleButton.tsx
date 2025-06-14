@@ -4,12 +4,10 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 export default function SyncWithGoogleButton() {
-  const [status, setStatus] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleSync() {
     setLoading(true);
-    setStatus("Syncing...");
     try {
       const res = await fetch("/api/sync-contacts", {
         method: "POST",
