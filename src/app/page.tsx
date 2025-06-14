@@ -53,6 +53,25 @@ export default function Home() {
 
   ]
 
+  const roadMap = [
+    {
+      title: "Beta",
+      description: "Sample",
+      date: "6/21/2025",
+      status: "Planning",
+
+    },
+    {
+      title: "Production",
+      description: "Sample",
+      date: "7/31/2025",
+      status: "Pending",
+
+    },
+
+
+
+  ]
 
   return (
     <div>
@@ -108,7 +127,44 @@ export default function Home() {
               </div>
             ))}
           </div>
+
         </div>
+      </section>
+      <section className="bg-white dark:bg-gray-900">
+        <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+          <div className="max-w-screen-md mb-8 lg:mb-16">
+            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Roadmap</h2>
+            <p className="text-gray-500 sm:text-xl dark:text-gray-400">Passion project, with big dreams.</p>
+          </div>
+          <div className="space-y-8">
+            <ol
+              className="relative space-y-8 before:absolute before:-ml-px before:h-full before:w-0.5 before:rounded-full before:bg-gray-200 dark:before:bg-gray-700"
+            >
+              {roadMap.map((roadMapItem, idx) => (
+
+                <li key={idx} className="relative -ms-1.5 flex items-start gap-4">
+                  <span className="size-3 shrink-0 rounded-full bg-[#FFD700]"></span>
+
+                  <div className="-mt-2">
+                    <time className="text-xs/none font-medium text-gray-700 dark:text-gray-200">{roadMapItem.date}</time>
+
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">{roadMapItem.title}</h3>
+
+                    <p className="mt-0.5 text-sm text-gray-700 dark:text-gray-200">
+                    {roadMapItem.description}
+                    </p>
+                  </div>
+                </li>
+
+              ))}
+
+          
+            </ol>
+
+          </div>
+
+        </div>
+
       </section>
 
 

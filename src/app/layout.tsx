@@ -69,9 +69,12 @@ export default function RootLayout({
           </header>
           <main className="flex-1 p-4">{children}</main>
           <Toaster />
-          <footer className="p-4 bg-white md:p-8 lg:p-10 dark:bg-gray-800">
+          <footer className="p-4 e md:p-8 lg:p-10 dark:bg-gray-800 bg-[#FFD700]">
             <div className="mx-auto max-w-screen-xl text-center">
-              <p className="my-6 text-gray-500 dark:text-gray-400">A contact management system with purpose.</p>
+              <div className="flex justify-center">
+                <img src="/kind_logo_yellow_bg.png" alt="Kind Logo" width={100} height={100} />
+              </div>
+              <p className="my-6 text-black-500 font-bold text-2xl dark:text-gray-400">Contact Management with Purpose: Be Kind</p>
               <ul className="flex flex-wrap justify-center items-center mb-6 text-gray-900 dark:text-white">
                 <li>
                   <a href="https://henryacastillo.com/" target="_blank" rel="noopener noreferrer" className="mr-4 hover:underline md:mr-6 ">About Henry</a>
@@ -80,7 +83,7 @@ export default function RootLayout({
                   <a href="#" className="mr-4 hover:underline md:mr-6">Contact</a>
                 </li>
               </ul>
-              <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="#" className="hover:underline">Kind by Yeve</a>. All Rights Reserved.</span>
+              <span className="text-sm text-black sm:text-center dark:text-gray-400">© 2025 <a href="#" className="hover:underline">Kind by Yeve</a>. All Rights Reserved.</span>
             </div>
           </footer>
         </body>
