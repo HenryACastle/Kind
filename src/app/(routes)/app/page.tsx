@@ -71,7 +71,7 @@ export default function ContactsPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto mb-10">
       {/* Header Component */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -94,16 +94,18 @@ export default function ContactsPage() {
       </div>
 
       {/* Search and Filter Bar */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-6">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-          <input
-            type="text"
-            placeholder="Search contacts by name, nickname, or mnemonic..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent dark:bg-gray-700 dark:text-white"
-          />
+      <div className="fixed bottom-17 left-4 right-4 z-10">
+        <div className="max-w-4xl mx-auto ">
+          <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <input
+              type="text"
+              placeholder="Search contacts by name, nickname, or mnemonic..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent dark:bg-gray-700 dark:text-white"
+            />
+          </div>
         </div>
       </div>
 
@@ -138,11 +140,11 @@ export default function ContactsPage() {
           {filteredContacts.map((c, idx) => (
             <div
               key={c.id}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-shadow duration-200 mb-2"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 py-2 pl-4 pr-2  items-center hover:bg-secondary/10 hover:shadow-md transition-shadow duration-200 mb-2"
             >
-              <div className="flex justify-between items-center">
-                <Link href={`/app/${c.id}`} className="flex-1">
-                  <div className="flex items-center gap-3">
+              <div className="flex justify-between items-center w-full h-18">
+                <Link href={`/app/${c.id}`} className="flex-1 w-1/6">
+                  <div className="flex items-center gap-3 w-full ">
                     {getAvatar(c.firstName, idx)}
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-gray-900 dark:text-white truncate">
@@ -150,40 +152,46 @@ export default function ContactsPage() {
                       </h3>
                       {(c.nickname || c.mnemonic) && (
                         <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
-                          {c.nickname && <span className="italic">{c.nickname}</span>}
+                          {c.nickname && <span className="font-mono">{c.nickname}</span>}
                           {c.nickname && c.mnemonic && <span> • </span>}
-                          {c.mnemonic && <span className="font-mono">{c.mnemonic}</span>}
+                          {c.mnemonic && <span className="italic">{c.mnemonic}</span>}
                         </p>
                       )}
                     </div>
                   </div>
                 </Link>
-                <div className="flex items-center gap-1">
-                  {c.phoneNumber && (
-                    <>
-                      <Link href={`tel:${c.phoneNumber}`}>
-                        <Button variant="secondary"><Phone /></Button>
-                      </Link>
-                      <Link href={`sms:${c.phoneNumber}`}>
-                        <Button variant="secondary"><MessageSquare /></Button>
-                      </Link>
-                    </>
-                  )}
-                  <Popover open={openPopoverId === c.id} onOpenChange={(open) => setOpenPopoverId(open ? c.id : null)}>
-                    <PopoverTrigger>
-                      <Button variant="secondary">
-                        <StickyNote className="w-4 h-4" />
+                <div className=" grid grid-cols-1 gap-1 ">
+                  <div className="flex items-center gap-1 ">
+                    {c.phoneNumber && (
+                      <>
+                        <Link href={`tel:${c.phoneNumber}`}>
+                          <Button variant="secondary"><Phone /></Button>
+                        </Link>
+                        <Link href={`sms:${c.phoneNumber}`}>
+                          <Button variant="secondary"><MessageSquare /></Button>
+                        </Link>
+                      </>
+                    )}
+
+                  </div>
+                  <div className="flex items-center gap-1">
+
+                    <Popover open={openPopoverId === c.id} onOpenChange={(open) => setOpenPopoverId(open ? c.id : null)}>
+                      <PopoverTrigger>
+                        <Button variant="secondary">
+                          <StickyNote className="w-4 h-4" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent>
+                        <NoteForm contactId={c.id} onSuccess={handleNoteSuccess} />
+                      </PopoverContent>
+                    </Popover>
+                    <Link href={`/app/${c.id}/edit`}>
+                      <Button>
+                        <Pencil className="w-4 h-4" />
                       </Button>
-                    </PopoverTrigger>
-                    <PopoverContent>
-                      <NoteForm contactId={c.id} onSuccess={handleNoteSuccess} />
-                    </PopoverContent>
-                  </Popover>
-                  <Link href={`/app/${c.id}/edit`}>
-                    <Button>
-                      <Pencil className="w-4 h-4" />
-                    </Button>
-                  </Link>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

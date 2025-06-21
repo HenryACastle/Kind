@@ -308,6 +308,36 @@ export default function ContactForm({ initialData = {}, onSubmit, submitLabel = 
       </div>
 
       <div>
+        <h2 className="text-1xl font-bold mb-4 mt-6">Additional Information</h2>
+        <div className="my-4 grid w-full max-w-sm items-center gap-3">
+          <Label htmlFor="mnemonic">Mnemonic</Label>
+          <Input
+            type="text"
+            id="mnemonic"
+            value={formData.mnemonic}
+            onChange={handleChange("mnemonic")}
+          />
+        </div>
+        <div className="my-4 grid w-full max-w-sm items-center gap-3">
+          <Label htmlFor="summary">Summary</Label>
+          <Textarea
+            id="summary"
+            value={formData.summary}
+            onChange={handleTextareaChange("summary")}
+          />
+        </div>
+        <div className="my-4 grid w-full max-w-sm items-center gap-3">
+          <Label htmlFor="introducedBy">Introduced By</Label>
+          <Input
+            type="text"
+            id="introducedBy"
+            value={formData.introducedBy}
+            onChange={handleChange("introducedBy")}
+          />
+        </div>
+      </div>
+
+      <div>
         <h2 className="text-1xl font-bold mb-4 mt-6">Contact Details</h2>
         <h3 className="text-1xl font-bold mb-4 mt-6">Phone Numbers</h3>
         <Button type="button" onClick={addPhone}>+</Button>
@@ -473,35 +503,7 @@ export default function ContactForm({ initialData = {}, onSubmit, submitLabel = 
         ))}
       </div>
 
-      <div>
-        <h2 className="text-1xl font-bold mb-4 mt-6">Additional Information</h2>
-        <div className="my-4 grid w-full max-w-sm items-center gap-3">
-          <Label htmlFor="mnemonic">Mnemonic</Label>
-          <Input
-            type="text"
-            id="mnemonic"
-            value={formData.mnemonic}
-            onChange={handleChange("mnemonic")}
-          />
-        </div>
-        <div className="my-4 grid w-full max-w-sm items-center gap-3">
-          <Label htmlFor="summary">Summary</Label>
-          <Textarea
-            id="summary"
-            value={formData.summary}
-            onChange={handleTextareaChange("summary")}
-          />
-        </div>
-        <div className="my-4 grid w-full max-w-sm items-center gap-3">
-          <Label htmlFor="introducedBy">Introduced By</Label>
-          <Input
-            type="text"
-            id="introducedBy"
-            value={formData.introducedBy}
-            onChange={handleChange("introducedBy")}
-          />
-        </div>
-      </div>
+
 
       <div>
         <h2 className="text-1xl font-bold mb-4 mt-6">Socials</h2>
