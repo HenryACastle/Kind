@@ -55,15 +55,15 @@ export default function Home() {
 
   const roadMap = [
     {
-      title: "Beta",
-      description: "Sample",
-      date: "6/21/2025",
-      status: "Planning",
+      title: "Initial Beta Testing",
+      description: "Currently focused on testing and getting feedback from test users and establishing a solid foundation.",
+      date: "6/1/2025",
+      status: "In Progress",
 
     },
     {
-      title: "Production",
-      description: "Sample",
+      title: "Limited Public Release",
+      description: "With a solid foundation, we will release to the public with a limited number of users.",
       date: "7/31/2025",
       status: "Pending",
 
@@ -84,7 +84,7 @@ export default function Home() {
 
             <SignedIn>
 
-              <Link href="/contacts">
+              <Link href="/app">
                 <Button>
                   View Contacts
                 </Button>
@@ -143,7 +143,7 @@ export default function Home() {
               {roadMap.map((roadMapItem, idx) => (
 
                 <li key={idx} className="relative -ms-1.5 flex items-start gap-4">
-                  <span className="size-3 shrink-0 rounded-full bg-[#FFD700]"></span>
+                  <span className="size-3 shrink-0 rounded-full bg-secondary"></span>
 
                   <div className="-mt-2">
                     <time className="text-xs/none font-medium text-gray-700 dark:text-gray-200">{roadMapItem.date}</time>
@@ -151,14 +151,14 @@ export default function Home() {
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white">{roadMapItem.title}</h3>
 
                     <p className="mt-0.5 text-sm text-gray-700 dark:text-gray-200">
-                    {roadMapItem.description}
+                      {roadMapItem.description}
                     </p>
                   </div>
                 </li>
 
               ))}
 
-          
+
             </ol>
 
           </div>
@@ -166,6 +166,21 @@ export default function Home() {
         </div>
 
       </section>
+      <footer className="p-4 e md:p-8 lg:p-10 dark:bg-gray-800 bg-secondary">
+        <div className="mx-auto max-w-screen-xl text-center">
+          <div className="flex justify-center">
+            <img src="/kind_logo_yellow_bg.png" alt="Kind Logo" width={100} height={100} />
+          </div>
+          <p className="my-6 text-black-500 font-bold text-2xl dark:text-gray-400">Contact Management with Purpose: Be Kind</p>
+          <ul className="flex flex-wrap justify-center items-center mb-6 text-gray-900 dark:text-white">
+            <li>
+              <a href="https://henryacastillo.com/" target="_blank" rel="noopener noreferrer" className="mr-4 hover:underline md:mr-6 ">About Henry</a>
+            </li>
+           
+          </ul>
+          <span className="text-sm text-black sm:text-center dark:text-gray-400">© 2025 Kind by Yeve. All Rights Reserved.</span>
+        </div>
+      </footer>
 
 
 

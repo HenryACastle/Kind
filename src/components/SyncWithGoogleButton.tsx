@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
+import { CloudUpload } from "lucide-react";
 
 export default function SyncWithGoogleButton() {
   const [loading, setLoading] = useState(false);
@@ -35,6 +36,7 @@ export default function SyncWithGoogleButton() {
         disabled={loading}
       
       >
+        <CloudUpload/>
         {loading ? "Syncing..." : "Sync with Google"}
       </Button>
       

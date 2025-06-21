@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import NoteForm from "./NoteForm";
+import NoteForm from "../../../../components/NoteForm";
 import { Button } from "@/components/ui/button";
 import { Pencil, Phone, MessageSquare, Copy } from "lucide-react";
 import Link from "next/link";
@@ -109,7 +109,7 @@ export default function ContactDetailPage() {
             contact.suffix
           ].filter(Boolean).join(" ")}
         </h1>
-        <Link href={`/contacts/${id}/edit`}>
+        <Link href={`/app/${id}/edit`}>
           <Button>
             <Pencil />
           </Button>

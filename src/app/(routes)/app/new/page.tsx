@@ -25,10 +25,10 @@ export default function NewContactPage() {
       
       if (result.id) {
         toast.success("Contact created successfully!");
-        router.push(`/contacts/${result.id}`);
+        router.push(`/app/${result.id}`);
       } else {
         toast.error("Contact created but no ID returned");
-        router.push("/contacts");
+        router.push("/app");
       }
     } catch (error) {
       console.error('Error creating contact:', error);
