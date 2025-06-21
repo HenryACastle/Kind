@@ -102,7 +102,7 @@ export default function ContactsPage() {
             placeholder="Search contacts by name, nickname, or mnemonic..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent dark:bg-gray-700 dark:text-white"
           />
         </div>
       </div>
@@ -110,7 +110,7 @@ export default function ContactsPage() {
       {/* Contacts Grid */}
       {loading ? (
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500 mx-auto"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-secondary mx-auto"></div>
           <p className="mt-2 text-gray-600 dark:text-gray-400">Loading contacts...</p>
         </div>
       ) : filteredContacts.length === 0 ? (
@@ -126,7 +126,7 @@ export default function ContactsPage() {
           </p>
           {!search && (
             <Link href="/contacts/new">
-              <Button className="bg-yellow-500 hover:bg-yellow-600 text-black">
+              <Button variant="secondary">
                 <UserRoundPlus className="w-4 h-4 mr-2" />
                 Add Your First Contact
               </Button>

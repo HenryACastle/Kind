@@ -22,7 +22,7 @@ export default function MobileNavigationBar() {
 
 
                 <Link className="w-full h-full flex items-center justify-center hover:bg-amber-200" href="/app/new">
-                    <div className="flex items-center justify-center w-10 h-10 bg-yellow-300 rounded-full">
+                    <div className="flex items-center justify-center w-10 h-10 bg-secondary rounded-full">
                         <CirclePlus className="w-6 h-6  " />
                     </div>
                 </Link>

@@ -1,6 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
 
 export default function NoteForm({ contactId, onSuccess }: { contactId: number; onSuccess?: () => void }) {
   const [noteText, setNoteText] = useState("");
@@ -30,22 +32,22 @@ export default function NoteForm({ contactId, onSuccess }: { contactId: number; 
         setError(null);
         onSuccess?.();
       }
-    } 
+    }
     catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
     }
-    
+
     finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="w-80">  
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-        <div>
-          <label className="font-semibold text-sm">Note</label>
-          <textarea
+    <div className="w-full">
+      <form onSubmit={handleSubmit} className="">
+        <div className="flex-col my-4 grid w-full max-w-sm items-center gap-3">
+          <Label >Note</Label>
+          <Textarea
             className="w-full border rounded p-2 text-sm"
             value={noteText}
             onChange={e => setNoteText(e.target.value)}
@@ -54,8 +56,8 @@ export default function NoteForm({ contactId, onSuccess }: { contactId: number; 
             placeholder="Enter your note here..."
           />
         </div>
-        <div>
-          <label className="font-semibold text-sm">Related Date</label>
+        <div className="flex-col my-4 grid w-full max-w-sm items-center gap-3">
+          <Label >Related Date</Label>
           <input
             type="date"
             className="w-full border rounded p-2 text-sm"
@@ -64,6 +66,8 @@ export default function NoteForm({ contactId, onSuccess }: { contactId: number; 
             required
           />
         </div>
+
+
         <div className="flex gap-2 mt-2">
           <Button
             type="submit"
