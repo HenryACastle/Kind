@@ -2,9 +2,11 @@
 
 import SyncWithGoogleButton from '@/components/SyncWithGoogleButton';
 import Link from 'next/link';
-import { Pencil, UserRoundPlus, Search, Phone, MessageSquare } from 'lucide-react';
+import { Pencil, UserRoundPlus, Search, Phone, MessageSquare, StickyNote } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from "react";
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import NoteForm from '@/components/NoteForm';
 
 type Contact = {
   id: number;
@@ -23,6 +25,7 @@ export default function ContactsPage() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [openPopoverId, setOpenPopoverId] = useState<number | null>(null);
 
   useEffect(() => {
     async function fetchContacts() {
@@ -36,6 +39,11 @@ export default function ContactsPage() {
     }
     fetchContacts();
   }, []);
+
+  const handleNoteSuccess = () => {
+    setOpenPopoverId(null);
+    // Optionally refresh contacts or show a success message
+  };
 
   const filteredContacts = contacts.filter(c => {
     const term = search.toLowerCase();
@@ -132,11 +140,11 @@ export default function ContactsPage() {
               key={c.id}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-shadow duration-200 mb-2"
             >
-              <Link href={`/app/${c.id}`} className="flex-1">
-                <div className="flex  justify-between items-center ">
+              <div className="flex justify-between items-center">
+                <Link href={`/app/${c.id}`} className="flex-1">
                   <div className="flex items-center gap-3">
                     {getAvatar(c.firstName, idx)}
-                    <div className="flex-1 min-w-0 ">
+                    <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-gray-900 dark:text-white truncate">
                         {[c.firstName, c.middleName, c.lastName, c.suffix].filter(Boolean).join(' ')}
                       </h3>
@@ -149,29 +157,35 @@ export default function ContactsPage() {
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    {c.phoneNumber && (
-                      <>
-                        <Link href={`tel:${c.phoneNumber}`}>
-                          <Button variant="secondary"><Phone /></Button>
-                        </Link>
-                        <Link href={`sms:${c.phoneNumber}`}>
-                          <Button variant="secondary"><MessageSquare /></Button>
-                        </Link>
-                      </>
-                    )}
-
-                    <Link href={`/app/${c.id}/edit`}>
-                      <Button   >
-                        <Pencil className="w-4 h-4" />
+                </Link>
+                <div className="flex items-center gap-1">
+                  {c.phoneNumber && (
+                    <>
+                      <Link href={`tel:${c.phoneNumber}`}>
+                        <Button variant="secondary"><Phone /></Button>
+                      </Link>
+                      <Link href={`sms:${c.phoneNumber}`}>
+                        <Button variant="secondary"><MessageSquare /></Button>
+                      </Link>
+                    </>
+                  )}
+                  <Popover open={openPopoverId === c.id} onOpenChange={(open) => setOpenPopoverId(open ? c.id : null)}>
+                    <PopoverTrigger>
+                      <Button variant="secondary">
+                        <StickyNote className="w-4 h-4" />
                       </Button>
-                    </Link>
-                  </div>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <NoteForm contactId={c.id} onSuccess={handleNoteSuccess} />
+                    </PopoverContent>
+                  </Popover>
+                  <Link href={`/app/${c.id}/edit`}>
+                    <Button>
+                      <Pencil className="w-4 h-4" />
+                    </Button>
+                  </Link>
                 </div>
-              </Link>
-
-
-
+              </div>
             </div>
           ))}
         </div>

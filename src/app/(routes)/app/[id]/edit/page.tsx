@@ -57,7 +57,7 @@ export default function EditContactPage({ params }: { params: Promise<{ id: stri
             throw new Error("Failed to update contact");
         }
 
-        router.push(`/contacts/${id}`);
+        router.push(`/app/${id}`);
     };
     if (loading) return <LoadingAnimation />
     if (!initialData) return <div>Contact not found</div>;

@@ -2,8 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-export default function NoteForm({ contactId }: { contactId: number }) {
-  const [open, setOpen] = useState(false);
+export default function NoteForm({ contactId, onSuccess }: { contactId: number; onSuccess?: () => void }) {
   const [noteText, setNoteText] = useState("");
   const [relatedDate, setRelatedDate] = useState(() => {
     const today = new Date();
@@ -26,10 +25,10 @@ export default function NoteForm({ contactId }: { contactId: number }) {
         const data = await res.json();
         setError(data.error || "Failed to save note");
       } else {
-        setOpen(false);
         setNoteText("");
         setRelatedDate(new Date().toISOString().split("T")[0]);
-        window.location.reload();
+        setError(null);
+        onSuccess?.();
       }
     } 
     catch (err: unknown) {
@@ -42,52 +41,40 @@ export default function NoteForm({ contactId }: { contactId: number }) {
   }
 
   return (
-    <div className="mb-4">  
-      {!open ? (
-        <Button
-          
-          onClick={() => setOpen(true)}
-        >
-          + Add Note
-        </Button>
-      ) : (
-        <form onSubmit={handleSubmit} className="bg-gray-50 p-4 rounded shadow mt-2 flex flex-col gap-2">
-          <label className="font-semibold">Note</label>
+    <div className="w-80">  
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <div>
+          <label className="font-semibold text-sm">Note</label>
           <textarea
-            className="border rounded p-2"
+            className="w-full border rounded p-2 text-sm"
             value={noteText}
             onChange={e => setNoteText(e.target.value)}
             required
             rows={3}
+            placeholder="Enter your note here..."
           />
-          <label className="font-semibold">Related Date</label>
+        </div>
+        <div>
+          <label className="font-semibold text-sm">Related Date</label>
           <input
             type="date"
-            className="border rounded p-2"
+            className="w-full border rounded p-2 text-sm"
             value={relatedDate}
             onChange={e => setRelatedDate(e.target.value)}
             required
           />
-          <div className="flex gap-2 mt-2">
-            <button
-              type="submit"
-              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-              disabled={loading}
-            >
-              {loading ? "Saving..." : "Save"}
-            </button>
-            <button
-              type="button"
-              className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
-              onClick={() => setOpen(false)}
-              disabled={loading}
-            >
-              Cancel
-            </button>
-          </div>
-          {error && <div className="text-red-600 text-sm mt-1">{error}</div>}
-        </form>
-      )}
+        </div>
+        <div className="flex gap-2 mt-2">
+          <Button
+            type="submit"
+            disabled={loading}
+            className="flex-1"
+          >
+            {loading ? "Saving..." : "Save Note"}
+          </Button>
+        </div>
+        {error && <div className="text-red-600 text-sm">{error}</div>}
+      </form>
     </div>
   );
 } 
