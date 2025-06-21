@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { drizzle } from 'drizzle-orm/neon-http';
 import { contact, phone } from '@/db/schema';
-import { eq, asc } from 'drizzle-orm';
 
 const db = drizzle(process.env.DATABASE_URL!);
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   // Get all contacts
   const contacts = await db
     .select()

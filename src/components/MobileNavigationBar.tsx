@@ -1,8 +1,7 @@
 "use client";
 
-import { UsersRound, UserRound, CirclePlus, StickyNote, Ellipsis, Settings, HelpCircle, LogOut, PlaneLanding } from "lucide-react";
+import { UsersRound, UserRound, CirclePlus, StickyNote, Ellipsis, PlaneLanding } from "lucide-react";
 import Link from "next/link";
-import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { UserButton } from "@clerk/nextjs";
 
@@ -48,7 +47,7 @@ export default function MobileNavigationBar() {
                                 <PlaneLanding className="w-4 h-4" />
                                 Landing Page
                             </Link>
-                            
+
                         </div>
                     </PopoverContent>
                 </Popover>

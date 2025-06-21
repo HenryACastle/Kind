@@ -2,12 +2,25 @@
 
 import SyncWithGoogleButton from '@/components/SyncWithGoogleButton';
 import Link from 'next/link';
-import { Pencil, UserRoundPlus, Search, Filter, Phone, MessageSquare } from 'lucide-react';
+import { Pencil, UserRoundPlus, Search, Phone, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from "react";
 
+type Contact = {
+  id: number;
+  firstName?: string;
+  middleName?: string;
+  lastName?: string;
+  suffix?: string;
+  nickname?: string;
+  mnemonic?: string;
+  phoneNumber?: string;
+  phoneLabel?: string;
+  phoneOrdinal?: number;
+};
+
 export default function ContactsPage() {
-  const [contacts, setContacts] = useState<any[]>([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
