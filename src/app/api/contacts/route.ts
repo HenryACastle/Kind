@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { drizzle } from 'drizzle-orm/neon-http';
 import { contact, phone } from '@/db/schema';
 
